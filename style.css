@@ -105,3 +105,24 @@ body.dark .back-home:hover {
   background-color: #666;
   color: #cbc3c3;
 }
+/* Light mode background */
+body {
+  background: url('light-mode-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #1a1a1a;
+  transition: background 0.4s, color 0.4s;
+  font-family: 'Radley', serif;
+  margin: 0;
+  padding: 2rem;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* Dark mode background */
+body.dark {
+  background: url('dark-mode-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #eaeaea;
+}
+
