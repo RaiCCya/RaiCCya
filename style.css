@@ -1,14 +1,19 @@
-/* Typography and Layout */
-body {
-  font-family: 'Radley', serif;
-  background-color: #fdfcf9;
-  color: #1a1a1a;
+/* 🌼 General Style */
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 2rem;
-  line-height: 1.6;
+  font-family: 'Radley', serif;
+  background: linear-gradient(to bottom right, #fdfcf9, #f4f1ec);
+  color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   transition: background-color 0.4s, color 0.4s;
   opacity: 0;
   animation: fadeIn 1.2s ease forwards;
+  padding: 2rem;
+  line-height: 1.6;
 }
 
 @keyframes fadeIn {
@@ -31,28 +36,48 @@ h2 {
   margin-top: 2rem;
 }
 
-ul {
-  list-style-type: none;
+/* Center and style link container */
+.link-bubbles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.link-bubbles ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 300px; /* optional: fix width for uniformity */
 }
 
-li {
-  padding: 0.3rem 0;
+/* 🌸 Bubble Links */
+ul li a {
+  display: inline-block;
+  background-color: rgba(242, 233, 228, 0.6);
+  color: #333;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-/* Main Button */
-button {
-  background-color: #dedede;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  margin-top: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+ul li a:hover {
+  background-color: rgba(232, 216, 204, 0.8);
+  color: #000;
+  transform: translateY(-2px);
 }
 
-/* Back Home button */
+/* 🕯️ Back Home Button */
 .back-home {
   display: inline-block;
   margin-top: 1rem;
@@ -77,9 +102,9 @@ footer {
   color: #888;
 }
 
-/* 🌙 Dark Mode */
+/* 🌑 Dark Mode */
 body.dark {
-  background-color: #1e1e1e;
+  background: linear-gradient(to bottom right, #1e1e1e, #2a2a2a);
   color: #eaeaea;
 }
 
@@ -89,6 +114,18 @@ body.dark h1 {
 
 body.dark h2 {
   color: #cfcfcf;
+}
+
+body.dark ul li a {
+  background-color: rgba(51, 51, 51, 0.6);
+  color: #eee;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.dark ul li a:hover {
+  background-color: rgba(85, 85, 85, 0.8);
+  color: #fff;
 }
 
 body.dark button {
@@ -103,58 +140,32 @@ body.dark .back-home {
 
 body.dark .back-home:hover {
   background-color: #666;
-  color: #cbc3c3;
-}
-/* Light mode background */
-body {
-  background: url('light-mode-background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #1a1a1a;
-  transition: background 0.4s, color 0.4s;
-  font-family: 'Radley', serif;
-  margin: 0;
-  padding: 2rem;
-  line-height: 1.6;
-  opacity: 0;
-  animation: fadeIn 1.2s ease forwards;
-}
-
-/* Dark mode background */
-body.dark {
-  background: url('dark-mode-background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #eaeaea;
-}
-/* 🌸 Link Bubbles */
-ul li a {
-  display: inline-block;
-  background-color: #f2e9e4;
-  color: #333;
-  text-decoration: none;
-  padding: 0.6rem 1.2rem;
-  margin: 0.4rem 0;
-  border-radius: 12px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-
-/* ✨ On Hover */
-ul li a:hover {
-  background-color: #e8d8cc;
-  color: #000;
-  transform: translateY(-2px);
-}
-
-/* 🌑 Dark Mode */
-body.dark ul li a {
-  background-color: #333;
-  color: #eee;
-  box-shadow: 2px 2px 6px rgba(255,255,255,0.05);
-}
-
-body.dark ul li a:hover {
-  background-color: #555;
   color: #fff;
 }
 
+/* 🌫️ Overlay Mist */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: -1;
+}
+
+body.dark .overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* 🕹️ Toggle Button */
+button {
+  background-color: #dedede;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
