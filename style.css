@@ -125,4 +125,36 @@ body.dark {
   background-size: cover;
   color: #eaeaea;
 }
+/* 🌸 Link Bubbles */
+ul li a {
+  display: inline-block;
+  background-color: #f2e9e4;
+  color: #333;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  margin: 0.4rem 0;
+  border-radius: 12px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+/* ✨ On Hover */
+ul li a:hover {
+  background-color: #e8d8cc;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+/* 🌑 Dark Mode */
+body.dark ul li a {
+  background-color: #333;
+  color: #eee;
+  box-shadow: 2px 2px 6px rgba(255,255,255,0.05);
+}
+
+body.dark ul li a:hover {
+  background-color: #555;
+  color: #fff;
+}
 
