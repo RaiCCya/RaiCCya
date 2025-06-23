@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RaiCCya — Links</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
+
+  <script>
+    // On page load, check localStorage for theme preference
+    const prefersDark = localStorage.getItem('theme') === 'dark';
+    if (prefersDark) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary-teal: #3c9d9b;
+      --accent-beige: #f9f5ef;
+      --soft-clay: #e2cfc3;
+      --text-dark: #333333;
+      --teal-hover: #2e7c7a;
+
+      --dark-bg: #1e1e1e;
+      --dark-text: #ddd;
+      --dark-btn: #3c9d9b;
+      --dark-hover: #25615f;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Radley', serif;
+      background-color: var(--accent-beige);
+      color: var(--text-dark);
+      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      background-repeat: repeat;
+      background-attachment: fixed;
+      background-size: auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary-teal);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #6a6a6a;
+      margin-bottom: 2rem;
+    }
+
+    .link-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 320px;
+      margin: 2rem auto;
+    }
+
+    .link-buttons a {
+      background-color: var(--primary-teal);
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .link-buttons a:hover {
+      background-color: var(--teal-hover);
+    }
+
+    .social-title {
+      margin-top: 3rem;
+      font-size: 1.2rem;
+      color: var(--primary-teal);
+      font-style: italic;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0 2rem;
+      flex-wrap: wrap;
+    }
+
+    .social-icons a {
+      font-size: 1rem;
+      padding: 0.7rem 1.2rem;
+      background-color: var(--soft-clay);
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-icons a:hover {
+      background-color: #d8beb2;
+      transform: scale(1.05);
+    }
+
+    .back-home {
+      margin-top: 2rem;
+      display: inline-block;
+      background-color: var(--soft-clay);
+      color: var(--text-dark);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-home:hover {
+      background-color: #d8beb2;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #666;
+      background: rgba(60, 157, 155, 0.08);
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+    }
+
+    #toggle-dark {
+      margin-top: 2.5rem;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--soft-clay);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #toggle-dark:hover {
+      background-color: #d8beb2;
+    }
+
+    /* 🌙 Dark Mode Styles */
+    html.dark body {
+      background-color: var(--dark-bg);
+      background-image: none;
+      color: var(--dark-text);
+    }
+
+    html.dark h1,
+    html.dark .subtitle,
+    html.dark .social-title {
+      color: var(--dark-text);
+    }
+
+    html.dark .link-buttons a {
+      background-color: var(--dark-btn);
+    }
+
+    html.dark .link-buttons a:hover {
+      background-color: var(--dark-hover);
+    }
+
+    html.dark .social-icons a,
+    html.dark .back-home,
+    html.dark #toggle-dark {
+      background-color: var(--dark-btn);
+      color: white;
+    }
+
+    html.dark .social-icons a:hover,
+    html.dark .back-home:hover,
+    html.dark #toggle-dark:hover {
+      background-color: var(--dark-hover);
+    }
+
+    html.dark footer {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>RaiCCya</h1>
+    <p class="subtitle">Soft spaces to explore</p>
+
+    <div class="link-buttons">
+      <a href="detox.html">📘 Digital Detox Journal</a>
+      <a href="notes.html">🌏 Japanese & Filipino Notes</a>
+      <a href="history.html">📜 History</a>
+    </div>
+
+    <h2 class="social-title">🌐 Connect with Me Here</h2>
+    <div class="social-icons">
+      <a href="https://www.planetminecraft.com/member/solanine/" target="_blank">🪐 Planet Minecraft</a>
+      <a href="https://ca.pinterest.com/RaiCCya/_profile/" target="_blank">📌 Pinterest</a>
+      <a href="https://www.youtube.com/@RaiCanadaLife" target="_blank">🎥 YouTube</a>
+    </div>
+
+    <button id="toggle-dark">🌓 Toggle Dark Mode</button><br />
+
+    <a href="index.html" class="back-home">← Back Home</a>
+
+    <footer>
+      &copy; 2025 RaiCCya • Curated with teal and care
+    </footer>
+  </main>
+
+  <script>
+    const toggleBtn = document.getElementById('toggle-dark');
+
+    toggleBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+
+      // Save preference to localStorage
+      const theme = html.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', theme);
+    });
+  </script>
+</body>
+</html>

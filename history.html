@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>History — RaiCCya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Radley', serif;
+      background: #f4f1ea;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.8;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    html.dark body {
+      background: #1e1e1e;
+      color: #ddd;
+    }
+
+    h1 {
+      color: #3c9d9b;
+    }
+
+    section {
+      background: #e2cfc3;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    html.dark section {
+      background: #2d2d2d;
+    }
+
+    h2 {
+      color: #3c9d9b;
+      margin-top: 0;
+    }
+
+    html.dark h2 {
+      color: #62cdcb;
+    }
+
+    button {
+      font-family: 'Radley', serif;
+      background: #e2cfc3;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      margin-bottom: 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    html.dark button {
+      background: #3c9d9b;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🇯🇵🇵🇭 Japanese & Filipino History</h1>
+  <button id="toggle-dark">🌙 Toggle Dark Mode</button>
+
+  <section>
+    <h2>🌸 Japanese History Snapshot</h2>
+    <p>Japan’s story spans from the Jōmon period to the modern Reiwa era. Samurai, Shintoism, the Meiji Restoration, and technological revolutions define a journey of resilience and reinvention.</p>
+    <p><strong>Did you know?</strong> The Heian period (794–1185) is known for the rise of court poetry and the world’s first novel: *The Tale of Genji* by Murasaki Shikibu.</p>
+  </section>
+
+  <section>
+    <h2>⛩ Cultural Themes</h2>
+    <p>Tradition and aesthetics like *wabi-sabi*, seasonal festivals, and language levels (keigo) shape modern Japanese identity. Many customs, from bowing to cherry blossom viewing, reflect respect, impermanence, and harmony.</p>
+  </section>
+
+  <section>
+    <h2>🏛 Filipino History Snapshot</h2>
+    <p>From the pre-colonial barangay system to Spanish colonization and the 1986 People Power Revolution, the Philippines holds a rich tapestry of resistance, community, and identity.</p>
+    <p><strong>Highlight:</strong> The *Baybayin* script, once widely used before Spanish arrival, is now being revived by a new generation.</p>
+  </section>
+
+  <section>
+    <h2>🎎 Interwoven Histories</h2>
+    <p>Japan and the Philippines have crossed paths in war, diplomacy, and migration. Today, shared culture blooms in media, education, and food — from anime to adobo bentōs.</p>
+  </section>
+
+  <script>
+    const toggleDark = document.getElementById("toggle-dark");
+    toggleDark.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+    });
+  </script>
+
+</body>
+</html>

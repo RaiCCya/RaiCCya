@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RaiCCya — Live Dictionary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <style>
+    /* (Insert theme CSS from earlier) */
+    :root{--primary-teal:#3c9d9b;--soft-beige:#f4f1ea;--soft-clay:#e2cfc3;--dark-bg:#1e1e1e;--dark-text:#ddd;--dark-btn:#3c9d9b;}
+    body {margin:0;font-family:'Radley', serif;background:var(--soft-beige) url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;color:#333;padding:2rem;transition:.3s;}
+    html.dark body{background-color:var(--dark-bg);background-image:none;color:var(--dark-text);}
+    h1{font-size:2rem;color:var(--primary-teal);}
+    #controls{margin:1rem 0 2rem;}
+    button{font-family:'Radley', serif;background:var(--soft-clay);border:none;border-radius:6px;padding:.6rem 1rem;margin:.3rem;cursor:pointer;transition:.3s;}
+    html.dark button{background:var(--dark-btn);color:white;}
+    .entry{background:var(--soft-clay);padding:1rem 1.5rem;border-radius:10px;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+    html.dark .entry{background:#2d2d2d;box-shadow:0 2px 10px rgba(60,157,155,.3);}
+    .header{font-size:1.5rem;color:var(--primary-teal);margin-bottom:.2rem;}
+    html.dark .header{color:var(--dark-btn);}
+    .sub{font-style:italic;color:#555;margin-bottom:.5rem;}
+    html.dark .sub{color:#aaa;}
+    .meaning, .example{margin-bottom:.5rem;}
+    .grammar{background:white;padding:.7rem;border-left:4px solid var(--primary-teal);border-radius:6px;font-size:.95rem;display:none;}
+    html.dark .grammar{background:#3a3a3a;border-color:var(--dark-btn);color:#ccc;}
+    .show-grammar .grammar{display:block;}
+  </style>
+</head>
+<body>
+
+  <h1>Japanese & Filipino Dictionary (Live)</h1>
+  <div id="controls">
+  <button id="toggle-dark">🌙 Toggle Dark Mode</button>
+  <button id="toggle-grammar">📖 Show Grammar</button>
+  <hr />
+  <button data-type="all" class="filter-btn">🌐 All</button>
+  <button data-type="noun" class="filter-btn">📘 Nouns</button>
+  <button data-type="verb" class="filter-btn">🔤 Verbs</button>
+  <button data-type="particle" class="filter-btn">🎯 Particles</button>
+  <button data-type="season" class="filter-btn">🌸 Seasons</button>
+  <button data-type="weather" class="filter-btn">☁️ Weather</button>
+  <button data-type="era" class="filter-btn">⏳ Eras</button>
+  </div>
+  <main id="dictionary"></main>
+
+  <script>
+    const root = document.documentElement;
+    const dictEl = document.getElementById('dictionary');
+    const darkBtn = document.getElementById('toggle-dark');
+    const gramBtn = document.getElementById('toggle-grammar');
+
+    darkBtn.onclick = () => {
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    };
+
+    gramBtn.onclick = () => {
+      dictEl.classList.toggle('show-grammar');
+      gramBtn.textContent = dictEl.classList.contains('show-grammar') ? '📕 Hide Grammar' : '📖 Show Grammar';
+    };
+
+    function render(entries, type = 'all') {
+      dictEl.innerHTML = '';
+      entries.filter(e => type === 'all' || e.type.toLowerCase() === type)
+        .forEach(e => {
+          const card = document.createElement('div');
+          card.className = 'entry';
+          card.innerHTML = `
+            <div class="header">${e.japanese} — ${e.filipino}</div>
+            <div class="sub">${e.english}</div>
+            <div class="meaning">${e.meaning || ''}</div>
+            <div class="grammar">${e.grammar}</div>
+            <div class="example">${e.example_jp} — ${e.example_en}</div>
+          `;
+          dictEl.appendChild(card);
+        });
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(b => 
+      b.addEventListener('click', () => render(entriesData, b.dataset.type))
+    );
+
+    let entriesData = [];
+
+    fetch('https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11')
+      .then(r => r.json())
+      .then(data => {
+        entriesData = data;
+        render(entriesData);
+      })
+      .catch(err => {
+        console.error('Error fetching data:', err);
+        dictEl.innerHTML = '<p>Sorry — unable to load dictionary.</p>';
+      });
+
+  </script>
+</body>
+</html>
