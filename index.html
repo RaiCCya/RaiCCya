@@ -1,66 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RaiCCya</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script>
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-  </script>
+  <link rel="icon" href="favicon.png">
+  <script defer src="script.js"></script>
 </head>
 <body>
-
   <header>
-    <div class="header-text">
-      <h1>RaiCCya</h1>
-      <p>Coded out of love.</p>
-    </div>
-
-    <nav class="navbar">
-      <button id="menu-toggle">&#9776;</button>
-      <ul class="nav-links" id="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="notes.html">Notes</a></li>
-        <li><a href="dictionary.html">Dictionary</a></li>
-        <li><a href="links.html">Links</a></li>
-        <li><a href="settings.html">Settings</a></li>
-      </ul>
+    <h1>RaiCCya</h1>
+    <p class="subtitle">Coded out of love.</p>
+    <nav class="top-nav">
+      <a href="index.html" class="active">🏠 Home</a>
+      <a href="dictionary.html">🈳 Dictionary</a>
+      <a href="grammar.html">📖 Grammar</a>
     </nav>
+    <div class="toggle-container">
+      <button id="toggle-dark">🌙 Toggle Dark Mode</button>
+    </div>
   </header>
 
-  <main class="home-content">
-    <img src="lantern.png" alt="Lantern image" class="home-image">
-    <h2>Welcome to my creative space.</h2>
-    <p>Thoughtfully designed, softly written. This is my digital garden—filled with language, creativity, and intention.</p>
-    
-    <div class="home-buttons">
-      <a href="notes.html" class="bubble-link">📝 Language Notes</a>
-      <a href="dictionary.html" class="bubble-link">📖 Dictionary</a>
-      <a href="links.html" class="bubble-link">🔗 Curated Links</a>
-    </div>
-
-    <button id="toggle-dark">🌙 Toggle Dark Mode</button>
+  <main>
+    <section class="intro">
+      <h2>Welcome to my world</h2>
+      <p>Design. Language. Healing. ✨</p>
+      <div class="button-group">
+        <a href="links.html" class="home-button">🔗 Links</a>
+        <a href="notes.html" class="home-button">📒 Notes</a>
+        <a href="dictionary.html" class="home-button">🈳 Dictionary</a>
+      </div>
+    </section>
   </main>
 
-  <script>
-    // Dark Mode Toggle
-    const darkToggle = document.getElementById('toggle-dark');
-    darkToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-    });
-
-    // Hamburger Menu Toggle
-    const toggleBtn = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    toggleBtn.addEventListener('click', () => {
-      navMenu.classList.toggle('show');
-    });
-  </script>
+  <footer>
+    <p>&copy; 2025 RaiCCya</p>
+  </footer>
 </body>
 </html>

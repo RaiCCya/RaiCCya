@@ -354,3 +354,168 @@ html.dark button#toggle-dark {
     display: none;
   }
 }
+.grammar-card {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
+}
+
+.grammar-card:hover {
+  transform: scale(1.01);
+}
+
+.tag {
+  font-size: 0.8em;
+  background: var(--primary-teal);
+  color: white;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+  margin-left: 0.5em;
+}
+body.dark {
+  background: #111;
+  color: #f3f3f3;
+}
+
+.dark a {
+  color: #aad4d3;
+}
+
+.dark header, .dark footer {
+  background-color: #1e1e1e;
+}
+
+.dark .home-button {
+  background: #333;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+.dark .toggle-container button {
+  background-color: #444;
+  color: #f0f0f0;
+}
+:root {
+  --bg-soft: #f7f4ec;
+  --text: #2e2e2e;
+  --border: #e0dccc;
+  --card-bg: #fff;
+  --card-hover: #f0ede6;
+  --teal: #4a8a8b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Radley', serif;
+  background: var(--bg-soft);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+header, footer {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #faf8f4;
+}
+
+.top-nav {
+  margin-top: 1rem;
+}
+
+.top-nav a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: var(--teal);
+  font-weight: bold;
+}
+
+.home-button {
+  display: inline-block;
+  background: var(--teal);
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  margin: 0.5rem;
+  text-decoration: none;
+}
+
+.toggle-container {
+  margin-top: 1rem;
+}
+
+.intro {
+  text-align: center;
+  padding: 2rem;
+}
+
+footer {
+  margin-top: 2rem;
+  background: #f2eee5;
+}
+
+#grammar-points {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.grammar-card {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.grammar-card:hover {
+  transform: scale(1.01);
+  background: var(--card-hover);
+}
+
+.grammar-card h3 {
+  color: var(--teal);
+}
+
+.tag {
+  font-size: 0.75em;
+  background: var(--teal);
+  color: #fff;
+  padding: 0.2em 0.6em;
+  border-radius: 6px;
+  margin-left: 0.5em;
+}
+
+/* Dark Mode Styles */
+body.dark {
+  background: #121212;
+  color: #f3f3f3;
+}
+
+.dark header, .dark footer {
+  background-color: #1e1e1e;
+}
+
+.dark .home-button {
+  background: #333;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+.dark .grammar-card {
+  background: #1f1f1f;
+  border-color: #333;
+  color: #eee;
+}
+
+.dark .tag {
+  background: #7fc5c3;
+}
