@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Study Notes – RaiCCya</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.png" />
-  <script defer src="script.js"></script>
-  <script defer src="study.js"></script>
+  <title>RaiCCya – Study Notes</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.png" />
+  <script defer src="js/script.js"></script>
 </head>
 <body>
   <header>
-    <h1>Study Notes</h1>
-    <p class="subtitle">Gentle reflections from Japanese & Filipino language learning ✍️</p>
+    <h1>RaiCCya</h1>
+    <p class="subtitle">Coded out of love.</p>
     <nav class="top-nav">
       <a href="index.html">🏠 Home</a>
       <a href="dictionary.html">🈳 Dictionary</a>
-      <a href="grammar.html">📖 Grammar</a>
       <a href="study.html" class="active">📒 Study</a>
+      <a href="about.html">📝 About</a>
     </nav>
     <div class="toggle-container">
       <button id="toggle-dark">🌙 Toggle Dark Mode</button>
@@ -25,15 +24,44 @@
   </header>
 
   <main>
-    <section class="filter-buttons" id="filters">
-      <button data-filter="all" class="filter active">All</button>
-      <button data-filter="Verb" class="filter">Verbs</button>
-      <button data-filter="Phrase" class="filter">Phrases</button>
-      <button data-filter="Grammar" class="filter">Grammar</button>
-    </section>
+    <section class="grammar-section">
+      <h2>Politeness Levels (敬語 Keigo)</h2>
+      <p>Japanese uses different speech levels to show respect and social hierarchy. Here's a quick overview:</p>
 
-    <section id="study-entries" class="study-section">
-      <p>Loading your notes… 🍃</p>
+      <h3>Plain (Informal) Form</h3>
+      <p>Used with close friends, family, and in casual speech.</p>
+      <ul>
+        <li>食べる (taberu) — to eat</li>
+        <li>行く (iku) — to go</li>
+      </ul>
+
+      <h3>Polite Form (ます/です)</h3>
+      <p>The default polite form used in everyday conversation and formal settings.</p>
+      <ul>
+        <li>食べます (tabemasu)</li>
+        <li>行きます (ikimasu)</li>
+      </ul>
+
+      <h3>Honorific Form (尊敬語, そんけいご)</h3>
+      <p>Used to show respect to the person you are talking about.</p>
+      <ul>
+        <li>召し上がる (meshiagaru) — to eat (honorific)</li>
+        <li>いらっしゃる (irassharu) — to go, come, be (honorific)</li>
+      </ul>
+
+      <h3>Humble Form (謙譲語, けんじょうご)</h3>
+      <p>Used to humble oneself or one’s in-group in relation to others.</p>
+      <ul>
+        <li>いただく (itadaku) — to receive/eat (humble)</li>
+        <li>参る (mairu) — to go/come (humble)</li>
+      </ul>
+
+      <h3>Casual Contractions & Slang</h3>
+      <p>Common in informal speech, reflecting personality and tone.</p>
+      <ul>
+        <li>食べちゃう (tabechau) — casual contraction of 食べてしまう (to finish eating)</li>
+        <li>行っちゃう (icchau) — casual contraction of 行ってしまう (to leave/go)</li>
+      </ul>
     </section>
   </main>
 

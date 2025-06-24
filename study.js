@@ -1,44 +1,34 @@
-const sheetURL = "https://sheet.best/api/sheets/de8ae166-5807-41b6-9692-545e599fdc11/tabs/study"; // Replace with your link
-const studySection = document.getElementById("study-entries");
-const filterButtons = document.querySelectorAll(".filter");
-let entries = [];
+document.addEventListener("DOMContentLoaded", () => {
+  const table = document.querySelector("#grammar-table tbody");
+  const buttons = document.querySelectorAll("[data-language]");
 
-fetch(sheetURL)
-  .then(res => res.json())
-  .then(data => {
-    entries = data;
-    displayEntries(entries);
-  });
+  fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11/tabs/grammar")
+    .then(res => res.json())
+    .then(data => {
+      displayRows(data, "all");
 
-filterButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelector(".filter.active").classList.remove("active");
-    btn.classList.add("active");
-    const type = btn.dataset.filter;
-    if (type === "all") {
-      displayEntries(entries);
-    } else {
-      displayEntries(entries.filter(e => e.category === type));
-    }
-  });
-});
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-language]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const lang = btn.dataset.language;
+          displayRows(data, lang);
+        });
+      });
+    });
 
-function displayEntries(data) {
-  studySection.innerHTML = "";
-  if (data.length === 0) {
-    studySection.innerHTML = "<p>No notes found for this category.</p>";
-    return;
+  function displayRows(data, lang) {
+    table.innerHTML = "";
+    data.forEach(entry => {
+      if (lang === "all" || entry.Language === lang) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${entry.Grammar || ""}</td>
+          <td>${entry.Explanation || ""}</td>
+          <td>${entry.Example || ""}</td>
+        `;
+        table.appendChild(row);
+      }
+    });
   }
-
-  data.forEach(entry => {
-    const card = document.createElement("div");
-    card.className = "study-card";
-    card.setAttribute("data-category", entry.category);
-    card.innerHTML = `
-      <h3>${entry.title}</h3>
-      <p><strong>${entry.category}</strong> – ${entry.content}</p>
-      <p><em>${entry.example}</em><br><span class="translation">${entry.translation}</span></p>
-    `;
-    studySection.appendChild(card);
-  });
-}
+});
