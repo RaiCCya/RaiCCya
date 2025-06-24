@@ -3,70 +3,264 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RaiCCya – Study Notes</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="images/favicon.png" />
-  <script defer src="js/script.js"></script>
+  <title>Study Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f1e9;
+      --text: #333;
+      --card: #ffffff;
+      --accent: #2a8c8c;
+      --accent-hover: #46a1a1;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Radley', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--card);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      font-size: 1.6rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--accent);
+    }
+
+    nav {
+      position: absolute;
+      top: 70px;
+      right: 1rem;
+      background-color: var(--card);
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      display: none;
+      flex-direction: column;
+      padding: 0.5rem 1rem;
+      z-index: 100;
+    }
+
+    nav.show {
+      display: flex;
+    }
+
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: var(--accent-hover);
+    }
+
+    @media (min-width: 600px) {
+      nav {
+        position: static;
+        flex-direction: row;
+        display: flex !important;
+        gap: 1.5rem;
+        border: none;
+        background: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls input,
+    .controls button {
+      font-family: 'Radley', serif;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .controls input {
+      flex-grow: 1;
+    }
+
+    .controls button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .note {
+      margin-bottom: 2rem;
+      padding: 1rem 1.5rem;
+      background-color: #fff;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+    }
+
+    .note h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+
+    .note .meta {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .note .tags {
+      font-size: 0.85rem;
+      display: inline-block;
+      background-color: #eef6f6;
+      color: #2a8c8c;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      margin-top: 0.3rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>RaiCCya</h1>
-    <p class="subtitle">Coded out of love.</p>
-    <nav class="top-nav">
-      <a href="index.html">🏠 Home</a>
-      <a href="dictionary.html">🈳 Dictionary</a>
-      <a href="study.html" class="active">📒 Study</a>
-      <a href="about.html">📝 About</a>
+    <div class="logo">Study Notes</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="menu">
+      <a href="index.html">Home</a>
+      <a href="dictionary.html">Dictionary</a>
+      <a href="study.html">Study</a>
+      <a href="about.html">About</a>
     </nav>
-    <div class="toggle-container">
-      <button id="toggle-dark">🌙 Toggle Dark Mode</button>
-    </div>
   </header>
 
   <main>
-    <section class="grammar-section">
-      <h2>Politeness Levels (敬語 Keigo)</h2>
-      <p>Japanese uses different speech levels to show respect and social hierarchy. Here's a quick overview:</p>
+    <h1>Language Study Notes</h1>
 
-      <h3>Plain (Informal) Form</h3>
-      <p>Used with close friends, family, and in casual speech.</p>
-      <ul>
-        <li>食べる (taberu) — to eat</li>
-        <li>行く (iku) — to go</li>
-      </ul>
+    <div class="controls">
+      <input type="text" id="search" placeholder="Search notes..." />
+      <button onclick="filterBy('')">All</button>
+      <button onclick="filterBy('Verb')">Verbs</button>
+      <button onclick="filterBy('Phrase')">Phrases</button>
+      <button onclick="filterBy('Grammar')">Grammar</button>
+      <button onclick="filterBy('Particle')">Particles</button>
+      <button onclick="filterBy('Pronunciation')">Pronunciation</button>
+    </div>
 
-      <h3>Polite Form (ます/です)</h3>
-      <p>The default polite form used in everyday conversation and formal settings.</p>
-      <ul>
-        <li>食べます (tabemasu)</li>
-        <li>行きます (ikimasu)</li>
-      </ul>
-
-      <h3>Honorific Form (尊敬語, そんけいご)</h3>
-      <p>Used to show respect to the person you are talking about.</p>
-      <ul>
-        <li>召し上がる (meshiagaru) — to eat (honorific)</li>
-        <li>いらっしゃる (irassharu) — to go, come, be (honorific)</li>
-      </ul>
-
-      <h3>Humble Form (謙譲語, けんじょうご)</h3>
-      <p>Used to humble oneself or one’s in-group in relation to others.</p>
-      <ul>
-        <li>いただく (itadaku) — to receive/eat (humble)</li>
-        <li>参る (mairu) — to go/come (humble)</li>
-      </ul>
-
-      <h3>Casual Contractions & Slang</h3>
-      <p>Common in informal speech, reflecting personality and tone.</p>
-      <ul>
-        <li>食べちゃう (tabechau) — casual contraction of 食べてしまう (to finish eating)</li>
-        <li>行っちゃう (icchau) — casual contraction of 行ってしまう (to leave/go)</li>
-      </ul>
-    </section>
+    <div id="study-notes">
+      <p>Loading study notes...</p>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 RaiCCya</p>
+    &copy; 2025 Rai’s Language Journal.
   </footer>
+
+  <script>
+    let allNotes = [];
+
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
+
+    function displayNotes(notes) {
+      const container = document.getElementById("study-notes");
+      container.innerHTML = "";
+
+      if (notes.length === 0) {
+        container.innerHTML = "<p>No matching notes found.</p>";
+        return;
+      }
+
+      notes.forEach(note => {
+        const div = document.createElement("div");
+        div.className = "note";
+        div.innerHTML = `
+          <h2>${note.title}</h2>
+          <div class="meta">📅 ${note.date}</div>
+          <p>${note.content}</p>
+          ${note.tags ? `<span class="tags">${note.tags}</span>` : ""}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function filterBy(category) {
+      const search = document.getElementById("search").value.toLowerCase();
+      const filtered = allNotes.filter(note => {
+        const matchCategory = category === "" || note.tags?.toLowerCase().includes(category.toLowerCase());
+        const matchSearch = note.title?.toLowerCase().includes(search) || note.content?.toLowerCase().includes(search);
+        return matchCategory && matchSearch;
+      });
+      displayNotes(filtered);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11/tabs/Study%20notes")
+        .then(res => res.json())
+        .then(data => {
+          allNotes = data;
+          filterBy("");
+        })
+        .catch(err => {
+          document.getElementById("study-notes").innerHTML = "<p>Error loading notes.</p>";
+          console.error(err);
+        });
+
+      document.getElementById("search").addEventListener("input", () => {
+        filterBy("");
+      });
+    });
+  </script>
 </body>
 </html>

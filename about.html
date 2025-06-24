@@ -3,48 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About – RaiCCya</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.png" />
-  <script defer src="script.js"></script>
+  <title>About Rai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f1e9;
+      --text: #333;
+      --card: #ffffff;
+      --accent: #2a8c8c;
+      --accent-hover: #46a1a1;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Radley', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--card);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      font-size: 1.6rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--accent);
+    }
+
+    nav {
+      position: absolute;
+      top: 70px;
+      right: 1rem;
+      background-color: var(--card);
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      display: none;
+      flex-direction: column;
+      padding: 0.5rem 1rem;
+      z-index: 100;
+    }
+
+    nav.show {
+      display: flex;
+    }
+
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: var(--accent-hover);
+    }
+
+    @media (min-width: 600px) {
+      nav {
+        position: static;
+        display: flex !important;
+        flex-direction: row;
+        gap: 1.5rem;
+        border: none;
+        background: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    .about-photo {
+      width: 220px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text {
+      background-color: #f0f7f7;
+      padding: 1.5rem;
+      border-radius: 12px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>About</h1>
-    <p class="subtitle">Fragments of who I am 🌱</p>
-    <nav class="top-nav">
-      <a href="index.html">🏠 Home</a>
-      <a href="dictionary.html">🈳 Dictionary</a>
-      <a href="grammar.html">📖 Grammar</a>
-      <a href="about.html" class="active">📝 About</a>
+    <div class="logo">About</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="menu">
+      <a href="index.html">Home</a>
+      <a href="dictionary.html">Dictionary</a>
+      <a href="study.html">Study</a>
+      <a href="about.html">About</a>
     </nav>
-    <div class="toggle-container">
-      <button id="toggle-dark">🌙 Toggle Dark Mode</button>
-    </div>
   </header>
 
   <main>
-    <section class="blog">
-      <article class="blog-entry">
-        <h2>Day 31 – Returning to Paper</h2>
-        <p class="blog-date">June 23, 2025</p>
-        <p>
-          It’s been a month since I began the digital detox. My world has slowed, softened. I go to libraries now. I journal with ink, stretch with yoga, and smell pages like perfume. The silence feels alive. I don’t miss social media — not even a little.
-        </p>
-      </article>
-
-      <article class="blog-entry">
-        <h2>History is Healing</h2>
-        <p class="blog-date">June 22, 2025</p>
-        <p>
-          Reading about the Katipunan — the fire that stirred the Philippine revolution — connects me to something deeper. And then, Japan’s Heian court, their lantern-lit literature... It’s all a thread in who I am, who I’m becoming. Studying makes me feel whole.
-        </p>
-      </article>
-    </section>
+    <h1>Meet Rai</h1>
+<img src="https://i.postimg.cc/xd0mkJ53/Photo-Of-Rai.png" alt="A photo of Rai" class="about-photo" />
+    <div class="about-text">
+      <p>
+        Hello. I’m Rai — a journal keeper, word collector, and quiet wanderer in the realms of language.
+        This space is where I gather thoughts like pebbles and pin light to paper lanterns.
+      </p>
+      <p>
+        My study is handwritten, unhurried. Japanese and Filipino words fill the margins.
+        I learn by living slowly, by being present. This site reflects that:
+        a little archive of clarity, curiosity, and calm.
+      </p>
+      <p>
+        Whether you're learning or resting, you're always welcome here.
+      </p>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 RaiCCya</p>
+    &copy; 2025 Rai’s Language Journal.
   </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
+  </script>
 </body>
 </html>

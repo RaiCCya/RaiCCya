@@ -144,3 +144,58 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(18px);
 }
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.menu-toggle {
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--accent);
+}
+
+nav {
+  position: absolute;
+  top: 70px;
+  right: 1rem;
+  background-color: var(--card);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: none;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+}
+
+nav.show {
+  display: flex;
+}
+
+nav a {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--accent-hover);
+}
+
+@media (min-width: 600px) {
+  nav {
+    position: static;
+    flex-direction: row;
+    display: flex !important;
+    gap: 1.5rem;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}

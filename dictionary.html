@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Japanese-Filipino Dictionary</title>
+  <title>Dictionary</title>
   <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #f5f1e9;
       --text: #333;
       --card: #ffffff;
-      --accent: #7a6b5f;
-      --accent-hover: #a88c6a;
+      --accent: #2a8c8c; /* Teal */
+      --accent-hover: #46a1a1;
+      --noun: #c7dbe6;
+      --verb: #cdeac0;
+      --particle: #f9dcc4;
+      --grammar: #ffe0e9;
     }
 
     body {
@@ -29,6 +33,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
     }
 
     .logo {
@@ -38,7 +43,7 @@
     }
 
     .menu-toggle {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       cursor: pointer;
       border: none;
       background: none;
@@ -55,6 +60,11 @@
       display: none;
       flex-direction: column;
       padding: 0.5rem 1rem;
+      z-index: 100;
+    }
+
+    nav.show {
+      display: flex;
     }
 
     nav a {
@@ -68,81 +78,11 @@
       color: var(--accent-hover);
     }
 
-    nav.show {
-      display: flex;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: var(--accent);
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .filters input[type="text"] {
-      flex-grow: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-family: 'Radley', serif;
-      font-size: 1rem;
-    }
-
-    .filters button {
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .filters button:hover {
-      background-color: var(--accent-hover);
-    }
-
-    .entry {
-      margin-bottom: 2rem;
-    }
-
-    .entry h2 {
-      font-size: 1.25rem;
-      margin: 0 0 0.3rem;
-    }
-
-    .entry p {
-      margin: 0.2rem 0;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
-      padding: 2rem 1rem;
-    }
-
     @media (min-width: 600px) {
       nav {
         position: static;
         flex-direction: row;
-        display: flex;
+        display: flex !important;
         gap: 1.5rem;
         border: none;
         background: none;
@@ -153,11 +93,92 @@
         display: none;
       }
     }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls input,
+    .controls button {
+      font-family: 'Radley', serif;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .controls input {
+      flex-grow: 1;
+    }
+
+    .controls button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .entry {
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
+    .entry h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .entry p {
+      margin: 0.3rem 0;
+    }
+
+    .type {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+    }
+
+    .noun { background-color: var(--noun); }
+    .verb { background-color: var(--verb); }
+    .particle { background-color: var(--particle); }
+    .grammar { background-color: var(--grammar); }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">My Dictionary</div>
+    <div class="logo">Dictionary</div>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <nav id="menu">
       <a href="index.html">Home</a>
@@ -168,31 +189,66 @@
   </header>
 
   <main>
-    <h1>Japanese–Filipino Dictionary</h1>
+    <h1>Bilingual Dictionary</h1>
 
-    <div class="filters">
-      <input type="text" id="search" placeholder="Search word or meaning..." />
+    <div class="controls">
+      <input type="text" id="search" placeholder="Search..." />
       <button onclick="filterBy('')">All</button>
-      <button onclick="filterBy('Noun')">Noun</button>
-      <button onclick="filterBy('Verb')">Verb</button>
-      <button onclick="filterBy('Particle')">Particle</button>
+      <button onclick="filterBy('noun')">Nouns</button>
+      <button onclick="filterBy('verb')">Verbs</button>
+      <button onclick="filterBy('particle')">Particles</button>
+      <button onclick="filterBy('grammar')">Grammar</button>
+      <button onclick="toggleDirection()">🔀 JP → FIL</button>
+      <button onclick="sortAZ()">A–Z</button>
     </div>
 
     <div id="dictionary-entries">
-      <p>Loading entries...</p>
+      <p>Loading dictionary...</p>
     </div>
   </main>
 
   <footer>
-    &copy; 2025 Rai's Dictionary Project. All rights reserved.
+    &copy; 2025 Rai’s Language Journal.
   </footer>
 
   <script>
-    let fullData = [];
+    let allEntries = [];
+    let searchDirection = "jp"; // or "fil"
+    let currentSortAZ = false;
 
     function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.toggle('show');
+      document.getElementById("menu").classList.toggle("show");
+    }
+
+    function toggleDirection() {
+      searchDirection = (searchDirection === "jp") ? "fil" : "jp";
+      document.querySelector(".controls button:nth-child(6)").textContent =
+        (searchDirection === "jp") ? "🔀 JP → FIL" : "🔀 FIL → JP";
+      filterAndDisplay();
+    }
+
+    function filterBy(type) {
+      filterAndDisplay(type);
+    }
+
+    function sortAZ() {
+      currentSortAZ = !currentSortAZ;
+      filterAndDisplay();
+    }
+
+    function filterAndDisplay(type = '') {
+      const search = document.getElementById("search").value.toLowerCase();
+      let filtered = allEntries.filter(entry => {
+        const matchType = type === '' || entry.type?.toLowerCase() === type;
+        const matchSearch = entry[searchDirection]?.toLowerCase().includes(search);
+        return matchType && matchSearch;
+      });
+
+      if (currentSortAZ) {
+        filtered.sort((a, b) => a[searchDirection]?.localeCompare(b[searchDirection]));
+      }
+
+      displayEntries(filtered);
     }
 
     function displayEntries(entries) {
@@ -200,7 +256,7 @@
       container.innerHTML = "";
 
       if (entries.length === 0) {
-        container.innerHTML = "<p>No matching entries found.</p>";
+        container.innerHTML = "<p>No matches found.</p>";
         return;
       }
 
@@ -208,53 +264,32 @@
         const div = document.createElement("div");
         div.className = "entry";
 
-        const jp = entry["jp"] || "（未入力）";
-        const kana = entry["kana"] || "";
-        const fil = entry["fil"] || "";
-        const type = entry["type"] || "";
-        const meaning = entry["meaning"] || "";
-        const exampleJP = entry["exampleJP"] || "";
-        const exampleFIL = entry["exampleFIL"] || "";
+        const typeClass = entry.type?.toLowerCase() || "";
+        const typeLabel = `<span class="type ${typeClass}">${entry.type}</span>`;
 
         div.innerHTML = `
-          <h2>${jp} (${kana}) – ${fil}</h2>
-          <p><strong>Type:</strong> ${type}</p>
-          <p><strong>Meaning:</strong> ${meaning}</p>
-          <p><strong>Example:</strong> ${exampleJP} / ${exampleFIL}</p>
+          <h2>${entry[searchDirection]}</h2>
+          <p>${entry[searchDirection === "jp" ? "fil" : "jp"]}</p>
+          ${typeLabel}
         `;
-
         container.appendChild(div);
       });
     }
 
-    function filterBy(category) {
-      const search = document.getElementById("search").value.toLowerCase();
-      const filtered = fullData.filter(entry => {
-        const matchType = category === "" || entry.type?.toLowerCase() === category.toLowerCase();
-        const matchSearch =
-          entry.jp?.toLowerCase().includes(search) ||
-          entry.kana?.toLowerCase().includes(search) ||
-          entry.fil?.toLowerCase().includes(search) ||
-          entry.meaning?.toLowerCase().includes(search);
-        return matchType && matchSearch;
-      });
-      displayEntries(filtered);
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
       fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11")
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-          fullData = data;
-          displayEntries(data);
+          allEntries = data;
+          filterAndDisplay();
         })
         .catch(err => {
-          document.getElementById("dictionary-entries").innerHTML = "<p>Error loading dictionary entries.</p>";
+          document.getElementById("dictionary-entries").innerHTML = "<p>Error loading entries.</p>";
           console.error(err);
         });
 
       document.getElementById("search").addEventListener("input", () => {
-        filterBy(""); // Always run filter on search
+        filterAndDisplay();
       });
     });
   </script>
