@@ -3,55 +3,260 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RaiCCya – Dictionary</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="images/favicon.png" />
-  <script defer src="js/script.js"></script>
-  <script defer src="js/dictionary-data.js"></script>
-  <script defer src="js/dictionary-filter.js"></script>
+  <title>Japanese-Filipino Dictionary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f1e9;
+      --text: #333;
+      --card: #ffffff;
+      --accent: #7a6b5f;
+      --accent-hover: #a88c6a;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Radley', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--card);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      font-size: 1.5rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--accent);
+    }
+
+    nav {
+      position: absolute;
+      top: 70px;
+      right: 1rem;
+      background-color: var(--card);
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      display: none;
+      flex-direction: column;
+      padding: 0.5rem 1rem;
+    }
+
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: var(--accent-hover);
+    }
+
+    nav.show {
+      display: flex;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters input[type="text"] {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: 'Radley', serif;
+      font-size: 1rem;
+    }
+
+    .filters button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .filters button:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .entry {
+      margin-bottom: 2rem;
+    }
+
+    .entry h2 {
+      font-size: 1.25rem;
+      margin: 0 0 0.3rem;
+    }
+
+    .entry p {
+      margin: 0.2rem 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 2rem 1rem;
+    }
+
+    @media (min-width: 600px) {
+      nav {
+        position: static;
+        flex-direction: row;
+        display: flex;
+        gap: 1.5rem;
+        border: none;
+        background: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>RaiCCya</h1>
-    <p class="subtitle">Coded out of love.</p>
-    <nav class="top-nav">
-      <a href="index.html">🏠 Home</a>
-      <a href="dictionary.html" class="active">🈳 Dictionary</a>
-      <a href="study.html">📒 Study</a>
-      <a href="about.html">📝 About</a>
+    <div class="logo">My Dictionary</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="menu">
+      <a href="index.html">Home</a>
+      <a href="dictionary.html">Dictionary</a>
+      <a href="study.html">Study</a>
+      <a href="about.html">About</a>
     </nav>
-    <div class="toggle-container">
-      <button id="toggle-dark">🌙 Toggle Dark Mode</button>
-    </div>
   </header>
 
   <main>
-    <section class="dictionary-section">
-      <h2>Dictionary</h2>
-      <div class="filter-buttons">
-        <button data-type="all" class="active">All</button>
-        <button data-type="noun">Nouns</button>
-        <button data-type="verb">Verbs</button>
-        <button data-type="particle">Particles</button>
-      </div>
-      <table class="dictionary-table" id="dictionary-table">
-        <thead>
-          <tr>
-            <th>Word</th>
-            <th>Type</th>
-            <th>Meaning</th>
-            <th>Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- JS populates entries -->
-        </tbody>
-      </table>
-    </section>
+    <h1>Japanese–Filipino Dictionary</h1>
+
+    <div class="filters">
+      <input type="text" id="search" placeholder="Search word or meaning..." />
+      <button onclick="filterBy('')">All</button>
+      <button onclick="filterBy('Noun')">Noun</button>
+      <button onclick="filterBy('Verb')">Verb</button>
+      <button onclick="filterBy('Particle')">Particle</button>
+    </div>
+
+    <div id="dictionary-entries">
+      <p>Loading entries...</p>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 RaiCCya</p>
+    &copy; 2025 Rai's Dictionary Project. All rights reserved.
   </footer>
+
+  <script>
+    let fullData = [];
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+
+    function displayEntries(entries) {
+      const container = document.getElementById("dictionary-entries");
+      container.innerHTML = "";
+
+      if (entries.length === 0) {
+        container.innerHTML = "<p>No matching entries found.</p>";
+        return;
+      }
+
+      entries.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = "entry";
+
+        const jp = entry["jp"] || "（未入力）";
+        const kana = entry["kana"] || "";
+        const fil = entry["fil"] || "";
+        const type = entry["type"] || "";
+        const meaning = entry["meaning"] || "";
+        const exampleJP = entry["exampleJP"] || "";
+        const exampleFIL = entry["exampleFIL"] || "";
+
+        div.innerHTML = `
+          <h2>${jp} (${kana}) – ${fil}</h2>
+          <p><strong>Type:</strong> ${type}</p>
+          <p><strong>Meaning:</strong> ${meaning}</p>
+          <p><strong>Example:</strong> ${exampleJP} / ${exampleFIL}</p>
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    function filterBy(category) {
+      const search = document.getElementById("search").value.toLowerCase();
+      const filtered = fullData.filter(entry => {
+        const matchType = category === "" || entry.type?.toLowerCase() === category.toLowerCase();
+        const matchSearch =
+          entry.jp?.toLowerCase().includes(search) ||
+          entry.kana?.toLowerCase().includes(search) ||
+          entry.fil?.toLowerCase().includes(search) ||
+          entry.meaning?.toLowerCase().includes(search);
+        return matchType && matchSearch;
+      });
+      displayEntries(filtered);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11")
+        .then(response => response.json())
+        .then(data => {
+          fullData = data;
+          displayEntries(data);
+        })
+        .catch(err => {
+          document.getElementById("dictionary-entries").innerHTML = "<p>Error loading dictionary entries.</p>";
+          console.error(err);
+        });
+
+      document.getElementById("search").addEventListener("input", () => {
+        filterBy(""); // Always run filter on search
+      });
+    });
+  </script>
 </body>
 </html>

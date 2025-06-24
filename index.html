@@ -3,40 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RaiCCya – Home</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="images/favicon.png" />
-  <script defer src="js/script.js"></script>
+  <title>Your Project Title</title>
+  <style>
+    /* Basic reset and typography */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f1e9; /* Soft beige background */
+      color: #333;
+      line-height: 1.6;
+      padding: 1rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #5a4a3c;
+      margin: 0;
+    }
+
+    nav {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #7a6b5f;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #a88c6a;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      main {
+        padding: 1.5rem;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>RaiCCya</h1>
-    <p class="subtitle">Coded out of love.</p>
-    <nav class="top-nav">
-      <a href="index.html" class="active">🏠 Home</a>
-      <a href="dictionary.html">🈳 Dictionary</a>
-      <a href="study.html">📒 Study</a>
-      <a href="about.html">📝 About</a>
+    <h1>Welcome to my website! Coded with love and care.</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dictionary.html">Dictionary</a>
+      <a href="study.html">Study</a>
+      <a href="about.html">About</a>
     </nav>
-    <div class="toggle-container">
-      <button id="toggle-dark">🌙 Toggle Dark Mode</button>
-    </div>
   </header>
 
   <main>
-    <section class="intro-section">
-      <h2>Welcome to RaiCCya</h2>
-      <p>Your peaceful space to explore Japanese and Filipino language, culture, and creativity.</p>
-      <div class="link-buttons">
-        <a href="dictionary.html" class="btn">Dictionary</a>
-        <a href="study.html" class="btn">Study Notes</a>
-        <a href="about.html" class="btn">About</a>
-      </div>
+    <section>
+      <h2>Introduction</h2>
+      <p>Here, you will find my discoveries on a bilingual dictionary, Japanese and Filipino.</p>
+      <p>Also, let's treat this website like a retreat, a sanctuary from the noise.</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 RaiCCya</p>
+    &copy; 2025 RaiCCya — All rights reserved.
   </footer>
 </body>
 </html>
