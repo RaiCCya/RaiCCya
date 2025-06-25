@@ -10,12 +10,15 @@
       --bg: #f5f1e9;
       --text: #333;
       --card: #ffffff;
-      --accent: #2a8c8c; /* Teal */
+      --accent: #2a8c8c;
       --accent-hover: #46a1a1;
-      --noun: #c7dbe6;
-      --verb: #cdeac0;
-      --particle: #f9dcc4;
-      --grammar: #ffe0e9;
+
+      /* Colors for types */
+      --noun-color: #1e7f7f;
+      --verb-color: #3a99a9;
+      --phrase-color: #67b4b4;
+      --particle-color: #a1d2d2;
+      --default-type-color: var(--accent);
     }
 
     body {
@@ -33,7 +36,6 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      position: relative;
     }
 
     .logo {
@@ -81,8 +83,8 @@
     @media (min-width: 600px) {
       nav {
         position: static;
-        flex-direction: row;
         display: flex !important;
+        flex-direction: row;
         gap: 1.5rem;
         border: none;
         background: none;
@@ -95,7 +97,7 @@
     }
 
     main {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 2rem;
       background-color: var(--card);
@@ -106,67 +108,89 @@
     h1 {
       color: var(--accent);
       font-size: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.75rem;
       margin-bottom: 1.5rem;
+      align-items: center;
     }
 
-    .controls input,
-    .controls button {
-      font-family: 'Radley', serif;
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    .controls input {
+    .controls input[type="text"] {
       flex-grow: 1;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: 'Radley', serif;
+      font-size: 1rem;
     }
 
     .controls button {
+      padding: 0.5rem 1rem;
       background-color: var(--accent);
       color: white;
       border: none;
+      border-radius: 6px;
+      font-family: 'Radley', serif;
+      font-weight: 600;
       cursor: pointer;
+      transition: background-color 0.25s ease;
     }
 
-    .controls button:hover {
+    .controls button:hover,
+    .controls button.active {
       background-color: var(--accent-hover);
     }
 
     .entry {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       padding: 1rem 1.5rem;
-      border-left: 4px solid var(--accent);
-      border-radius: 6px;
       background-color: #fff;
+      border-left: 5px solid var(--accent);
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
 
     .entry h2 {
-      margin: 0;
-      font-size: 1.3rem;
-    }
-
-    .entry p {
-      margin: 0.3rem 0;
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 1.5rem;
     }
 
     .type {
       display: inline-block;
       padding: 0.3rem 0.6rem;
-      border-radius: 5px;
+      margin-bottom: 0.75rem;
+      border-radius: 4px;
       font-size: 0.85rem;
-      margin-top: 0.4rem;
+      font-weight: 700;
+      color: white;
+      user-select: none;
     }
 
-    .noun { background-color: var(--noun); }
-    .verb { background-color: var(--verb); }
-    .particle { background-color: var(--particle); }
-    .grammar { background-color: var(--grammar); }
+    .type.noun {
+      background-color: var(--noun-color);
+    }
+
+    .type.verb {
+      background-color: var(--verb-color);
+    }
+
+    .type.phrase {
+      background-color: var(--phrase-color);
+    }
+
+    .type.particle {
+      background-color: var(--particle-color);
+      color: #222;
+    }
+
+    .type.default {
+      background-color: var(--default-type-color);
+    }
 
     footer {
       text-align: center;
@@ -189,22 +213,20 @@
   </header>
 
   <main>
-    <h1>Bilingual Dictionary</h1>
-
+    <h1>Japanese–Filipino Dictionary</h1>
     <div class="controls">
-      <input type="text" id="search" placeholder="Search..." />
-      <button onclick="filterBy('')">All</button>
-      <button onclick="filterBy('noun')">Nouns</button>
-      <button onclick="filterBy('verb')">Verbs</button>
-      <button onclick="filterBy('particle')">Particles</button>
-      <button onclick="filterBy('grammar')">Grammar</button>
-      <button onclick="toggleDirection()">🔀 JP → FIL</button>
-      <button onclick="sortAZ()">A–Z</button>
+      <input type="text" id="search" placeholder="Search in JP, FIL, or EN..." />
+      <button id="sortBtn" title="Sort A–Z">Sort A–Z ▲</button>
+    </div>
+    <div class="controls" style="gap: 0.5rem; margin-top: 0;">
+      <button class="filter-btn active" data-type="">All</button>
+      <button class="filter-btn" data-type="noun">Noun</button>
+      <button class="filter-btn" data-type="verb">Verb</button>
+      <button class="filter-btn" data-type="phrase">Phrase</button>
+      <button class="filter-btn" data-type="particle">Particle</button>
     </div>
 
-    <div id="dictionary-entries">
-      <p>Loading dictionary...</p>
-    </div>
+    <div id="dictionary">Loading...</div>
   </main>
 
   <footer>
@@ -212,86 +234,102 @@
   </footer>
 
   <script>
-    let allEntries = [];
-    let searchDirection = "jp"; // or "fil"
-    let currentSortAZ = false;
+    const dictionaryContainer = document.getElementById("dictionary");
+    const searchInput = document.getElementById("search");
+    const sortBtn = document.getElementById("sortBtn");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    let entries = [];
+    let currentSortAsc = true;
+    let currentFilter = "";
 
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("show");
     }
 
-    function toggleDirection() {
-      searchDirection = (searchDirection === "jp") ? "fil" : "jp";
-      document.querySelector(".controls button:nth-child(6)").textContent =
-        (searchDirection === "jp") ? "🔀 JP → FIL" : "🔀 FIL → JP";
-      filterAndDisplay();
+    // Returns CSS class for type (lowercase)
+    function getTypeClass(type) {
+      if (!type) return "default";
+      type = type.toLowerCase();
+      if (["noun", "verb", "phrase", "particle"].includes(type)) return type;
+      return "default";
     }
 
-    function filterBy(type) {
-      filterAndDisplay(type);
-    }
-
-    function sortAZ() {
-      currentSortAZ = !currentSortAZ;
-      filterAndDisplay();
-    }
-
-    function filterAndDisplay(type = '') {
-      const search = document.getElementById("search").value.toLowerCase();
-      let filtered = allEntries.filter(entry => {
-        const matchType = type === '' || entry.type?.toLowerCase() === type;
-        const matchSearch = entry[searchDirection]?.toLowerCase().includes(search);
-        return matchType && matchSearch;
-      });
-
-      if (currentSortAZ) {
-        filtered.sort((a, b) => a[searchDirection]?.localeCompare(b[searchDirection]));
-      }
-
-      displayEntries(filtered);
-    }
-
-    function displayEntries(entries) {
-      const container = document.getElementById("dictionary-entries");
-      container.innerHTML = "";
-
-      if (entries.length === 0) {
-        container.innerHTML = "<p>No matches found.</p>";
+    function render(entriesToShow) {
+      if (!entriesToShow.length) {
+        dictionaryContainer.innerHTML = "<p>No matching results.</p>";
         return;
       }
 
-      entries.forEach(entry => {
+      dictionaryContainer.innerHTML = "";
+      entriesToShow.forEach(entry => {
+        const typeClass = getTypeClass(entry.type);
         const div = document.createElement("div");
         div.className = "entry";
-
-        const typeClass = entry.type?.toLowerCase() || "";
-        const typeLabel = `<span class="type ${typeClass}">${entry.type}</span>`;
-
         div.innerHTML = `
-          <h2>${entry[searchDirection]}</h2>
-          <p>${entry[searchDirection === "jp" ? "fil" : "jp"]}</p>
-          ${typeLabel}
+          <h2>${entry.jp} (${entry.kana})</h2>
+          <div class="type ${typeClass}">${entry.type || "Unknown"}</div>
+          <p><strong>FIL:</strong> ${entry.fil}</p>
+          <p><strong>EN:</strong> ${entry.meaning}</p>
+          <p><strong>JP Example:</strong> ${entry.exampleJP}</p>
+          <p><strong>FIL Example:</strong> ${entry.exampleFIL}</p>
         `;
-        container.appendChild(div);
+        dictionaryContainer.appendChild(div);
       });
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11")
-        .then(res => res.json())
-        .then(data => {
-          allEntries = data;
-          filterAndDisplay();
-        })
-        .catch(err => {
-          document.getElementById("dictionary-entries").innerHTML = "<p>Error loading entries.</p>";
-          console.error(err);
-        });
+    function filterAndRender() {
+      const query = searchInput.value.toLowerCase();
+      let filtered = entries.filter(entry =>
+        (entry.jp && entry.jp.toLowerCase().includes(query)) ||
+        (entry.fil && entry.fil.toLowerCase().includes(query)) ||
+        (entry.meaning && entry.meaning.toLowerCase().includes(query))
+      );
 
-      document.getElementById("search").addEventListener("input", () => {
-        filterAndDisplay();
+      if (currentFilter) {
+        filtered = filtered.filter(entry => 
+          entry.type && entry.type.toLowerCase() === currentFilter
+        );
+      }
+
+      filtered.sort((a, b) => {
+        if (!a.jp) return 1;
+        if (!b.jp) return -1;
+        if (a.jp.toLowerCase() < b.jp.toLowerCase()) return currentSortAsc ? -1 : 1;
+        if (a.jp.toLowerCase() > b.jp.toLowerCase()) return currentSortAsc ? 1 : -1;
+        return 0;
+      });
+
+      render(filtered);
+    }
+
+    // Event Listeners
+    searchInput.addEventListener("input", filterAndRender);
+
+    sortBtn.addEventListener("click", () => {
+      currentSortAsc = !currentSortAsc;
+      sortBtn.textContent = currentSortAsc ? "Sort A–Z ▲" : "Sort Z–A ▼";
+      filterAndRender();
+    });
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        currentFilter = button.getAttribute("data-type").toLowerCase();
+        filterAndRender();
       });
     });
+
+    // Fetch dictionary data
+    fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11")
+      .then(res => res.json())
+      .then(data => {
+        entries = data;
+        filterAndRender();
+      })
+      .catch(() => {
+        dictionaryContainer.innerHTML = "<p>Error loading dictionary data.</p>";
+      });
   </script>
 </body>
 </html>
