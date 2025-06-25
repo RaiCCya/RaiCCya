@@ -7,35 +7,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f5f1e9;
-      --text: #333;
-      --card: #ffffff;
-      --accent: #2a8c8c;
-      --accent-hover: #46a1a1;
+      --bg-light: #f5f1e9;
+      --text-light: #333333;
+      --card-light: #ffffff;
+      --accent-light: #2a8c8c;
+      --accent-hover-light: #46a1a1;
+
+         /* Dark mode colors */
+      --bg-dark: #352e21;
+      --text-dark: #6db9b9;
+      --card-dark: #232423;
+      --accent-dark: #a1cfcf;
+      --accent-hover-dark: #bbe3e3;
+    }
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
       font-family: 'Radley', serif;
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-light);
+      color: var(--text-light);
       line-height: 1.6;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      min-height: 100vh;
+      padding-top: 3.5rem;
+      position: relative;
+      text-align: center;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     header {
-      background-color: var(--card);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background-color: var(--card-light);
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       position: relative;
+      transition: background-color 0.4s ease;
+    }
+
+    body.dark header {
+      background-color: var(--card-dark);
     }
 
     .logo {
       font-size: 1.8rem;
       font-weight: bold;
-      color: var(--accent);
+      color: var(--accent-light);
+      transition: color 0.4s ease;
+    }
+
+    body.dark .logo {
+      color: var(--accent-dark);
     }
 
     .menu-toggle {
@@ -43,20 +76,31 @@
       cursor: pointer;
       border: none;
       background: none;
-      color: var(--accent);
+      color: var(--accent-light);
+      transition: color 0.4s ease;
+    }
+
+    body.dark .menu-toggle {
+      color: var(--accent-dark);
     }
 
     nav {
       position: absolute;
       top: 70px;
       right: 1rem;
-      background-color: var(--card);
+      background-color: var(--card-light);
       border: 1px solid #ddd;
       border-radius: 6px;
       display: none;
       flex-direction: column;
       padding: 0.5rem 1rem;
       z-index: 100;
+      transition: background-color 0.4s ease, border-color 0.4s ease;
+    }
+
+    body.dark nav {
+      background-color: var(--card-dark);
+      border-color: #346e6b;
     }
 
     nav.show {
@@ -64,14 +108,23 @@
     }
 
     nav a {
-      color: var(--accent);
+      color: var(--accent-light);
       text-decoration: none;
       padding: 0.5rem 0;
       font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    body.dark nav a {
+      color: var(--accent-dark);
     }
 
     nav a:hover {
-      color: var(--accent-hover);
+      color: var(--accent-hover-light);
+    }
+
+    body.dark nav a:hover {
+      color: var(--accent-hover-dark);
     }
 
     @media (min-width: 600px) {
@@ -91,18 +144,29 @@
     }
 
     main {
-      max-width: 800px;
+      max-width: 700px;
       margin: 2rem auto;
+      background: var(--card-light);
       padding: 2rem;
-      background-color: var(--card);
       border-radius: 8px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-      text-align: center;
+      transition: box-shadow 0.4s ease, background-color 0.4s ease;
+    }
+
+    body.dark main {
+      box-shadow: 0 0 12px rgba(170, 220, 220, 0.6);
+      background-color: var(--card-dark);
     }
 
     h1 {
-      color: var(--accent);
       font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-light);
+      transition: color 0.4s ease;
+    }
+
+    body.dark h1 {
+      color: var(--accent-dark);
     }
 
     .about-photo {
@@ -111,6 +175,11 @@
       border-radius: 10px;
       box-shadow: 0 0 8px rgba(0,0,0,0.05);
       margin-bottom: 1.5rem;
+      transition: box-shadow 0.4s ease;
+    }
+
+    body.dark .about-photo {
+      box-shadow: 0 0 12px rgba(170, 220, 220, 0.6);
     }
 
     .about-text {
@@ -119,12 +188,14 @@
       border-radius: 12px;
       display: inline-block;
       text-align: left;
-    }
-
-    .about-text p {
       font-size: 1.05rem;
       color: #444;
-      margin-bottom: 1rem;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    body.dark .about-text {
+      background-color: #352e21;
+      color: #c8d8d8;
     }
 
     footer {
@@ -132,13 +203,76 @@
       font-size: 0.9rem;
       color: #888;
       padding: 2rem 1rem;
+      transition: color 0.4s ease;
+    }
+
+    body.dark footer {
+      color: #a0c4c4;
+    }
+
+    .social-links {
+      margin-top: 1.8rem;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .social-links a {
+      color: var(--accent-light);
+      margin: 0 0.9rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    body.dark .social-links a {
+      color: var(--accent-dark);
+    }
+
+    .social-links a:hover {
+      color: var(--accent-hover-light);
+    }
+
+    body.dark .social-links a:hover {
+      color: var(--accent-hover-dark);
+    }
+
+    .mode-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1.8rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      background-color: var(--card-light);
+      color: var(--accent-light);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.4s ease, color 0.4s ease;
+      z-index: 1100;
+      border: none;
+    }
+
+    body.dark .mode-toggle {
+      background-color: var(--card-dark);
+      color: var(--accent-dark);
+    }
+
+    .mode-toggle:hover {
+      background-color: var(--accent-light);
+      color: var(--card-light);
+    }
+
+    body.dark .mode-toggle:hover {
+      background-color: var(--accent-hover-dark);
+      color: var(--card-dark);
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">About</div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
     <nav id="menu">
       <a href="index.html">Home</a>
       <a href="dictionary.html">Dictionary</a>
@@ -149,20 +283,21 @@
 
   <main>
     <h1>Meet Rai</h1>
-<img src="https://i.postimg.cc/xd0mkJ53/Photo-Of-Rai.png" alt="A photo of Rai" class="about-photo" />
+    <img
+      src="https://i.postimg.cc/xd0mkJ53/Photo-Of-Rai.png"
+      alt="A photo of Rai"
+      class="about-photo"
+    />
     <div class="about-text">
-      <p>
-        Hello. I’m Rai — a journal keeper, word collector, and quiet wanderer in the realms of language.
-        This space is where I gather thoughts like pebbles and pin light to paper lanterns.
-      </p>
-      <p>
-        My study is handwritten, unhurried. Japanese and Filipino words fill the margins.
-        I learn by living slowly, by being present. This site reflects that:
-        a little archive of clarity, curiosity, and calm.
-      </p>
-      <p>
-        Whether you're learning or resting, you're always welcome here.
-      </p>
+      <p>Hello. I’m Rai — a journal keeper, word collector, and quiet wanderer in the realms of language. This space is where I gather thoughts like pebbles and pin light to paper lanterns.</p>
+      <p>My study is handwritten, unhurried. Japanese and Filipino words fill the margins. I learn by living slowly, by being present. This site reflects that: a little archive of clarity, curiosity, and calm.</p>
+      <p>Whether you're learning or resting, you're always welcome here.</p>
+    </div>
+
+    <div class="social-links">
+      <a href="https://pin.it/1uBUX8VMb" target="_blank" rel="noopener noreferrer">Pinterest</a>
+      <a href="https://www.youtube.com/@RaiCanadaLife" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="https://www.planetminecraft.com/member/solanine/" target="_blank" rel="noopener noreferrer">Planet Minecraft</a>
     </div>
   </main>
 
@@ -170,10 +305,31 @@
     &copy; 2025 Rai’s Language Journal.
   </footer>
 
+  <button class="mode-toggle" id="modeToggle" aria-label="Toggle dark mode">🌙</button>
+
   <script>
     function toggleMenu() {
       document.getElementById("menu").classList.toggle("show");
     }
+
+    const modeToggle = document.getElementById('modeToggle');
+
+    function updateToggleIcon() {
+      if (document.body.classList.contains('dark')) {
+        modeToggle.textContent = '☀️';
+      } else {
+        modeToggle.textContent = '🌙';
+      }
+    }
+
+    modeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      updateToggleIcon();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateToggleIcon();
+    });
   </script>
 </body>
 </html>

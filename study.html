@@ -3,180 +3,224 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Study Notes</title>
+  <title>Study - Rai’s Language Journal</title>
   <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f5f1e9;
-      --text: #333;
-      --card: #ffffff;
-      --accent: #2a8c8c;
-      --accent-hover: #46a1a1;
+      --bg-light: #f5f1e9;
+      --text-light: #333333;
+      --card-light: #ffffff;
+      --accent-light: #2a8c8c;
+      --accent-hover-light: #46a1a1;
+
+      --bg-dark: #352e21;
+      --text-dark: #6db9b9;
+      --card-dark: #232423;
+      --accent-dark: #a1cfcf;
+      --accent-hover-dark: #bbe3e3;
     }
 
     body {
-      margin: 0;
       font-family: 'Radley', serif;
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-light);
+      color: var(--text-light);
       line-height: 1.6;
+      margin: 0;
+      min-height: 100vh;
+      padding: 3.5rem 1rem 2rem;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     header {
-      background-color: var(--card);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--card-light);
+      color: var(--accent-light);
       padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      position: relative;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      z-index: 1000;
+    }
+    body.dark header {
+      background-color: var(--card-dark);
+      color: var(--accent-dark);
     }
 
     .logo {
       font-size: 1.8rem;
       font-weight: bold;
-      color: var(--accent);
-    }
-
-    .menu-toggle {
-      font-size: 1.6rem;
-      cursor: pointer;
-      border: none;
-      background: none;
-      color: var(--accent);
     }
 
     nav {
-      position: absolute;
-      top: 70px;
-      right: 1rem;
-      background-color: var(--card);
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      display: none;
-      flex-direction: column;
-      padding: 0.5rem 1rem;
-      z-index: 100;
-    }
-
-    nav.show {
       display: flex;
+      gap: 1.5rem;
     }
 
     nav a {
-      color: var(--accent);
+      color: inherit;
       text-decoration: none;
-      padding: 0.5rem 0;
       font-weight: 600;
-    }
-
-    nav a:hover {
-      color: var(--accent-hover);
-    }
-
-    @media (min-width: 600px) {
-      nav {
-        position: static;
-        flex-direction: row;
-        display: flex !important;
-        gap: 1.5rem;
-        border: none;
-        background: none;
-        padding: 0;
-      }
-
-      .menu-toggle {
-        display: none;
-      }
     }
 
     main {
       max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: var(--card);
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+      margin: 0 auto;
+      padding-top: 1rem;
     }
 
     h1 {
-      color: var(--accent);
-      font-size: 2rem;
+      color: var(--accent-light);
+      transition: color 0.4s ease;
+    }
+    body.dark h1 {
+      color: var(--accent-dark);
     }
 
     .controls {
+      margin: 1rem 0 1.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.7rem;
-      margin-bottom: 1.5rem;
     }
 
-    .controls input,
-    .controls button {
-      font-family: 'Radley', serif;
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    .controls input {
+    .controls input[type="text"] {
       flex-grow: 1;
+      padding: 0.5rem 1rem;
+      font-family: 'Radley', serif;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    body.dark .controls input[type="text"] {
+      background-color: #174f4d;
+      color: var(--text-dark);
+      border-color: #3a807d;
     }
 
     .controls button {
-      background-color: var(--accent);
+      background-color: var(--accent-light);
       color: white;
       border: none;
-      cursor: pointer;
-    }
-
-    .controls button:hover {
-      background-color: var(--accent-hover);
-    }
-
-    .note {
-      margin-bottom: 2rem;
-      padding: 1rem 1.5rem;
-      background-color: #fff;
-      border-left: 4px solid var(--accent);
+      padding: 0.5rem 1rem;
       border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Radley', serif;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .controls button:hover {
+      background-color: var(--accent-hover-light);
+    }
+    body.dark .controls button {
+      background-color: var(--accent-dark);
+    }
+    body.dark .controls button:hover {
+      background-color: var(--accent-hover-dark);
     }
 
-    .note h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: var(--accent);
+    #study-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 0.5rem;
     }
 
-    .note .meta {
-      font-size: 0.85rem;
+    .study-item {
+      background-color: var(--card-light);
+      border-left: 6px solid var(--accent-light);
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      transition: background-color 0.4s ease, border-color 0.4s ease;
+    }
+    body.dark .study-item {
+      background-color: var(--card-dark);
+      border-left-color: var(--accent-dark);
+    }
+
+    .study-item h2 {
+      margin-bottom: 0.3rem;
+      font-size: 1.25rem;
+      color: var(--accent-light);
+      transition: color 0.4s ease;
+    }
+    body.dark .study-item h2 {
+      color: var(--accent-dark);
+    }
+
+    .study-item .category {
+      font-style: italic;
       color: #666;
-      margin-bottom: 0.5rem;
-    }
-
-    .note .tags {
-      font-size: 0.85rem;
-      display: inline-block;
-      background-color: #eef6f6;
-      color: #2a8c8c;
-      padding: 0.2rem 0.6rem;
-      border-radius: 5px;
-      margin-top: 0.3rem;
-    }
-
-    footer {
-      text-align: center;
       font-size: 0.9rem;
-      color: #888;
-      padding: 2rem 1rem;
+      margin-bottom: 0.4rem;
+    }
+    body.dark .study-item .category {
+      color: #a0c4c4;
+    }
+
+    .study-item .content {
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+
+    /* Scrollbar styling */
+    #study-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    #study-list::-webkit-scrollbar-thumb {
+      background-color: var(--accent-light);
+      border-radius: 4px;
+    }
+    body.dark #study-list::-webkit-scrollbar-thumb {
+      background-color: var(--accent-dark);
+    }
+
+    .mode-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1.8rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      background-color: var(--card-light);
+      color: var(--accent-light);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.4s ease, color 0.4s ease;
+      border: none;
+      z-index: 1100;
+    }
+    body.dark .mode-toggle {
+      background-color: var(--card-dark);
+      color: var(--accent-dark);
+    }
+    .mode-toggle:hover {
+      background-color: var(--accent-light);
+      color: var(--card-light);
+    }
+    body.dark .mode-toggle:hover {
+      background-color: var(--accent-hover-dark);
+      color: var(--card-dark);
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">Study Notes</div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-    <nav id="menu">
+    <div class="logo">Rai’s Language Journal</div>
+    <nav>
       <a href="index.html">Home</a>
       <a href="dictionary.html">Dictionary</a>
       <a href="study.html">Study</a>
@@ -185,81 +229,86 @@
   </header>
 
   <main>
-    <h1>Language Study Notes</h1>
+    <h1>Study Notes</h1>
 
     <div class="controls">
-      <input type="text" id="search" placeholder="Search notes..." />
+      <input type="text" id="search" placeholder="Search study notes..." />
       <button onclick="filterBy('')">All</button>
-      <button onclick="filterBy('Verb')">Verbs</button>
-      <button onclick="filterBy('Phrase')">Phrases</button>
       <button onclick="filterBy('Grammar')">Grammar</button>
-      <button onclick="filterBy('Particle')">Particles</button>
+      <button onclick="filterBy('Vocabulary')">Vocabulary</button>
+      <button onclick="filterBy('Phrases')">Phrases</button>
       <button onclick="filterBy('Pronunciation')">Pronunciation</button>
     </div>
 
-    <div id="study-notes">
-      <p>Loading study notes...</p>
-    </div>
+    <div id="study-list"><p>Loading study notes...</p></div>
   </main>
 
-  <footer>
-    &copy; 2025 Rai’s Language Journal.
-  </footer>
+  <button class="mode-toggle" id="modeToggle" aria-label="Toggle dark mode">🌙</button>
 
   <script>
+    const studyList = document.getElementById('study-list');
+    const searchInput = document.getElementById('search');
     let allNotes = [];
 
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-
-    function displayNotes(notes) {
-      const container = document.getElementById("study-notes");
-      container.innerHTML = "";
-
-      if (notes.length === 0) {
-        container.innerHTML = "<p>No matching notes found.</p>";
-        return;
-      }
-
-      notes.forEach(note => {
-        const div = document.createElement("div");
-        div.className = "note";
-        div.innerHTML = `
-          <h2>${note.title}</h2>
-          <div class="meta">📅 ${note.date}</div>
-          <p>${note.content}</p>
-          ${note.tags ? `<span class="tags">${note.tags}</span>` : ""}
-        `;
-        container.appendChild(div);
-      });
-    }
-
     function filterBy(category) {
-      const search = document.getElementById("search").value.toLowerCase();
+      const searchTerm = searchInput.value.toLowerCase();
       const filtered = allNotes.filter(note => {
-        const matchCategory = category === "" || note.tags?.toLowerCase().includes(category.toLowerCase());
-        const matchSearch = note.title?.toLowerCase().includes(search) || note.content?.toLowerCase().includes(search);
-        return matchCategory && matchSearch;
+        const matchesCategory = category === '' || (note.category && note.category.toLowerCase() === category.toLowerCase());
+        const matchesSearch = (note.title && note.title.toLowerCase().includes(searchTerm)) || (note.content && note.content.toLowerCase().includes(searchTerm));
+        return matchesCategory && matchesSearch;
       });
       displayNotes(filtered);
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11/tabs/Study%20notes")
-        .then(res => res.json())
-        .then(data => {
-          allNotes = data;
-          filterBy("");
-        })
-        .catch(err => {
-          document.getElementById("study-notes").innerHTML = "<p>Error loading notes.</p>";
-          console.error(err);
-        });
-
-      document.getElementById("search").addEventListener("input", () => {
-        filterBy("");
+    function displayNotes(notes) {
+      studyList.innerHTML = '';
+      if (notes.length === 0) {
+        studyList.innerHTML = '<p>No study notes found.</p>';
+        return;
+      }
+      notes.forEach(note => {
+        const div = document.createElement('div');
+        div.className = 'study-item';
+        div.innerHTML = `
+          <h2>${note.title || ''}</h2>
+          <div class="category">${note.category || ''}</div>
+          <div class="content">${note.content || ''}</div>
+        `;
+        studyList.appendChild(div);
       });
+    }
+
+    async function loadStudyNotes() {
+      try {
+        const response = await fetch('https://api.sheetbest.com/sheets/de8ae166-5807-41b6-9692-545e599fdc11/tabs/Study');
+        const data = await response.json();
+        allNotes = data;
+        displayNotes(allNotes);
+      } catch (error) {
+        studyList.innerHTML = '<p>Error loading study notes.</p>';
+        console.error('Fetch error:', error);
+      }
+    }
+
+    const modeToggle = document.getElementById('modeToggle');
+    function updateToggleIcon() {
+      if (document.body.classList.contains('dark')) {
+        modeToggle.textContent = '☀️';
+      } else {
+        modeToggle.textContent = '🌙';
+      }
+    }
+
+    modeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      updateToggleIcon();
+    });
+
+    searchInput.addEventListener('input', () => filterBy(''));
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStudyNotes();
+      updateToggleIcon();
     });
   </script>
 </body>
